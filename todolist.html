@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="todolist.css">
+  <title>To Do list</title>
+</head>
+<body>
+
+  <!-- <script src="todolist.js"></script> -->
+
+
+  <header>
+    <h1>To Do List</h1>
+  </header>
+
+                                                    <!-- NAVBAR -->
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+
+                                                    <!-- TASK FORM -->
+  <div class="container">
+    <div class="task-form">
+
+      <h2>Add New Task</h2>
+
+      <form id="taskForm" action="/submit" method="post">
+        <input maxlength="50" type="text" id="taskTitle" placeholder="Task Title"><br>
+        <textarea id="taskInput" rows="4" maxlength="200" placeholder="Enter your task"></textarea><br>
+        <button type="button" onclick="addTask()">Add Task</button>
+      </form>
+
+    </div>
+
+                                                    <!-- ALL TASKS LIST -->
+    <h2>My Tasks</h2>
+
+    <!-- SEARCH TASK  -->
+    <div class="searchbar">
+      <form id="searchForm" action="/search" method="get">
+        <label for="searchtask">Task to find</label>
+        <input type="text" id="searchtask" name="query">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- SAMPLE HTML TASK DISPLAY -->
+    <!-- <ul class="task-list" id="taskList">
+      <li class="task-item">
+        <span><input type="checkbox"></span>
+        <span id="taskTitleList"></span>
+        <button class="info-btn">🛈</button>
+        <button class="delete-btn">🗑️</button>
+      </li>
+    </ul> -->
+ 
+    <!-- ONLY JS FUNCTIONALITY : WORKS WELL -->
+    <!-- <ul class="task-list" id="taskList">
+      
+    </ul> -->
+
+                                                    <!-- TASK LIST : FROM VECTOR DB-->
+  <ul class="task-list" id="taskList">
+    
+    {% for task in tasks %}
+    <li class="task-item">
+      <span><input type="checkbox"></span>
+      <span>{{ task.title }}</span>
+      <button class="info-btn">🛈</button>
+      <button class="delete-btn">🗑️</button>
+    </li>
+    {% endfor %}
+  </ul>
+
+  </div> 
+  
+</body>
+</html>
