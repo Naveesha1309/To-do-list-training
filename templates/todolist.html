@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="todolist.css">
+  <meta name="keywords" content="foo,bar"/>
+  <meta name="description" content="foo"/>
+  <link rel="stylesheet" href="static/todolist.css">
   <title>To Do list</title>
 </head>
 <body>
@@ -68,14 +70,14 @@
                                                     <!-- TASK LIST : FROM VECTOR DB-->
   <ul class="task-list" id="taskList">
     
-    {% for task in tasks %}
+    {%for i in range(0, len)%} 
     <li class="task-item">
       <span><input type="checkbox"></span>
-      <span>{{ task.title }}</span>
+      <span>{{tasks[i]}}</span>
       <button class="info-btn">🛈</button>
       <button class="delete-btn">🗑️</button>
     </li>
-    {% endfor %}
+    {%endfor%} 
   </ul>
 
   </div> 

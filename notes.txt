@@ -1,0 +1,10 @@
+# JINJA ISSUE: 
+# Install Jinja extension on VS
+# Add this in user settings(JSON) : "emmet.includeLanguages": {"jinja-html": "html"},
+# Change language mode to Jinja-HTML (bottom right - > vs code)
+
+# RUN FLASK ISSUE:
+# Run: 'Python run app.py' , Not 'flask run'
+
+# CHROMADB COLLECTION NOT CREATED
+# Current issue: An error occurred: Could not connect to a Chroma server. Are you sure it is running?

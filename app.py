@@ -1,11 +1,26 @@
 import chromadb
+from chromadb.utils import embedding_functions
 
 try:
+    #1
     # Initialize ChromaDB client
-    chroma_client = chromadb.Client()
+    # chroma_client = chromadb.Client()
 
-    # Create a collection
-    collection = chroma_client.create_collection(name="my_collection")
+    #2
+    # REFERENCE LINK : https://docs.trychroma.com/usage-guide?lang=py#running-chroma-in-clientserver-mode
+    # Example setup of the client to connect to your chroma server
+    chroma_client = chromadb.HttpClient(host='localhost', port=8000)
+
+
+    chroma_client = chromadb.PersistentClient(path="my_chroma_db")
+
+    # Embedding model 
+    sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+
+    # Create collection
+    collection = chroma_client.get_or_create_collection(name="my_collection",embedding_function=sentence_transformer_ef)
+    collection.add(documents="Add new task",metadatas=[{"title": "Add new task"}, {"description": "task description"}])
+    
 
     print("ChromaDB collection created successfully.")
 except Exception as e:
@@ -27,8 +42,15 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
 def all():
-    task_titles = [doc['title'] for doc in collection.metadata]
-    return render_template('todolist.html', tasks=task_titles)
+    response = collection.get()
+
+    # Extracting documents from the response
+    task_titles = response.get('documents', [])
+    # task_titles = ["a","b"]       #works
+
+    return render_template('todolist.html', len=len(task_titles) ,tasks=task_titles)
+
+
 
 @app.route("/submit", methods=['POST'])
 def submit():
